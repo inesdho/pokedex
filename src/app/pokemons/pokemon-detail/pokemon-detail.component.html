@@ -1,0 +1,41 @@
+<!--<ng-container *ngIf = "pokemon">
+  <h2>Details</h2>
+  <div><span>id: </span>{{pokemon.id}}</div>
+  <div><span>description: </span>{{pokemon.description}}</div>
+  <div><span>weight: </span>{{pokemon.weight}}</div>
+  <div><span>height: </span>{{pokemon.height}}</div>
+  <div><span>types: </span>{{pokemon.types}}</div>
+
+</ng-container>
+MatCard, MatGridList, MatList, MatChipList
+-->
+<mat-card *ngIf="pokemon">
+
+  <mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile><img matListItemAvatar src="assets/img/sprites/{{pokemon.id}}.png" alt="...">
+      <p>No. {{pokemon.id | number:'3.0'}} </p>
+    </mat-grid-tile>
+    <mat-grid-tile><p matListItemLine><span>{{pokemon.name}} </span>
+      <audio autoplay #audio>
+        <source src="assets/audio/{{pokemon.id}}.mp3" type="audio/mpeg">
+      </audio>
+      <button mat-icon-button (click)="audio.play()">
+        <mat-icon>play_circle_outline</mat-icon>
+      </button>
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let pokemon of pokemon?.types">
+          {{pokemon}}
+        </mat-chip>
+      </mat-chip-listbox>
+      <span>Taille: {{pokemon.height | number:'1.1'}} m</span><br>
+      <span>Poids: {{pokemon.weight| number:'1.1'}} kg</span>
+    </p></mat-grid-tile>
+    <mat-grid-tile>{{pokemon.description}}</mat-grid-tile>
+  </mat-grid-list>
+
+</mat-card>
+
+<input type="button" value="go back" (click)="goBack()">
+
+
+
