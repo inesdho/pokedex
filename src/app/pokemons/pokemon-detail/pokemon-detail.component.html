@@ -9,9 +9,9 @@
 </ng-container>
 MatCard, MatGridList, MatList, MatChipList
 -->
-<mat-card *ngIf="pokemon">
+<mat-card *ngIf="pokemon" class="card">
 
-  <mat-grid-list cols="2" rowHeight="4:1">
+  <mat-grid-list cols="2" rowHeight="3:1">
     <mat-grid-tile><img matListItemAvatar src="assets/img/sprites/{{pokemon.id}}.png" alt="...">
       <p>No. {{pokemon.id | number:'3.0'}} </p>
     </mat-grid-tile>

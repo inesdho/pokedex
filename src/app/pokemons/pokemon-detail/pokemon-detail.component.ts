@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Pokemon} from "../../models/pokemon.model";
 import {PokemonService} from "../service/pokemon.service";
 import {ActivatedRoute} from "@angular/router";
@@ -10,16 +10,18 @@ import { Location } from '@angular/common'
   styleUrls: ['./pokemon-detail.component.scss']
 })
 export class PokemonDetailComponent {
-
-  pokemon?: Pokemon;
+   pokemon?: Pokemon;
+  @Input() pokemonId?: number;
 
   constructor(private pokemonService: PokemonService, private route :ActivatedRoute, private location : Location  ) {
   }
-  getPokemons(){
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.pokemonService.getPokemon(id).subscribe(pokemon => this.pokemon =pokemon);
+  getPokemons() {
+    if (this.pokemonId) {
+      const id = this.pokemonId;
+      this.pokemonService.getPokemon(id).subscribe(pokemon => this.pokemon = pokemon);
+    }
   }
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.getPokemons();
   }
 

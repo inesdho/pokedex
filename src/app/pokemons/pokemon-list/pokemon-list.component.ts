@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {PagedData} from "../../models/paged-data.model";
 import {PokemonService} from "../service/pokemon.service";
 import {Pokemon} from "../../models/pokemon.model";
+import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-pokemon-list',
@@ -9,8 +10,11 @@ import {Pokemon} from "../../models/pokemon.model";
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent {
-  pokemons?: PagedData<Pokemon>;
+  pokemons?: PagedData<Pokemon> ;
 
+  pokemonList?:Observable<Pokemon[]>;
+  @Output() pokemonSelect = new EventEmitter<number>();
+  private searchTerms = new Subject<string>()
   constructor( private pokemonService : PokemonService) { }
 
   getPokemons(){
@@ -21,7 +25,6 @@ export class PokemonListComponent {
   ngOnInit(): void {
     this.getPokemons();
   }
-
   onScroll() {
     if(this.pokemons) {
       this.pokemons.offset += this.pokemons?.limit;
@@ -32,5 +35,13 @@ export class PokemonListComponent {
 
         }});
     }
+  }
+
+  up(id:number) {
+    this.pokemonSelect.emit(id);
+  }
+
+  search(term: string) {
+    this.pokemonService.searchPokemon(term).subscribe(myRes => {this.pokemons = myRes});
   }
 }

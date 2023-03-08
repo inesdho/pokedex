@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {catchError, Observable, of, tap} from "rxjs";
 import {Pokemon} from "../../models/pokemon.model";
 import {PagedData} from "../../models/paged-data.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {MessageService} from "./message.service";
 
 @Injectable({
@@ -51,6 +51,16 @@ export class PokemonService {
       catchError(this.handleError<Pokemon>('getHeroes')));
   }
 
+
+  searchPokemon(search: string): Observable<PagedData<Pokemon>> {
+    const url=this.pokemonsUrl;
+    const params = new HttpParams()
+      .set('search', search);
+    return this.http.get<PagedData<Pokemon>>(`${url}`, {params}).pipe(
+      tap(_ => this.log(`found heroes matching "${search}"`)),
+      catchError(this.handleError<PagedData<Pokemon>>('searchHeroes', ))
+    );
+  }
 
 
 }
