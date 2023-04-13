@@ -1,0 +1,42 @@
+<h1>Mon équipe</h1>
+
+<h3>Compose ton équipe</h3>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-nav-list class="list"  infiniteScroll (scrolled)="onScroll()" [scrollWindow]="false">
+      <mat-list-item *ngFor="let pokemon of pokemonsData?.data" (click)="up(pokemon.id)">
+        <img matListItemAvatar src="assets/img/sprites/{{pokemon.id}}.png" alt="...">
+        <p matListItemLine>
+          <span>{{pokemon.id}} </span>
+          <span>.{{pokemon.name}} </span>
+          <input type="button" value="+" (click)="add(pokemon.id)">
+        </p>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-nav-list >
+      <mat-list-item class="list" *ngFor="let pokemon of teamPokemons ">
+        <img matListItemAvatar src="assets/img/official-artwork/{{pokemon.id}}.png" alt="...">
+        <p matListItemLine>
+          <span>{{pokemon.name}} </span>
+          <input type="button" value="-" (click)="delete(pokemon.id)">
+
+        </p>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button routerLink="/" mat-stroked-button>Retour</button>
+<br><br>
+
+
+
+
+
+
+
+

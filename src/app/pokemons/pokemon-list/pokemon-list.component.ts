@@ -12,9 +12,7 @@ import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from
 export class PokemonListComponent {
   pokemons?: PagedData<Pokemon> ;
 
-  pokemonList?:Observable<Pokemon[]>;
   @Output() pokemonSelect = new EventEmitter<number>();
-  private searchTerms = new Subject<string>()
   constructor( private pokemonService : PokemonService) { }
 
   getPokemons(){

@@ -10,16 +10,8 @@ import {PokemonService} from "./pokemons/service/pokemon.service";
 export class AppComponent {
   title = 'Pokedex';
   private searchTerms = new Subject<string>()
-  constructor(private heroService: PokemonService) {}
 
   search(term : string){
     this.searchTerms.next(term);
-  }/*
-  ngOnInit(){
-    this.heroes$ = this.searchTerms.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((term: string) => this.heroService.searchHeroes(term)),
-    );
-  }*/
+  }
 }

@@ -1,0 +1,14 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" matInput  value="francois.poire@ig2i.centralelille.fr" placeholder="Ex. francois.poire@ig2i.centralelille.fr" >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" matInput   placeholder="Ex. toto12345">
+  </mat-form-field>
+  <button routerLink="/" mat-stroked-button>Retour</button>
+  &nbsp;&nbsp;
+  <a mat-stroked-button (click)="login()">Connexion</a>
+</form>
