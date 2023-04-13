@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PokemonsModule } from './pokemons/pokemons.module';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {MatInputModule} from "@angular/material/input";
         BrowserAnimationsModule,
         PokemonsModule,
         HttpClientModule,
-        MatInputModule
+        MatInputModule,
+        MatButtonModule
     ],
   providers: [],
   bootstrap: [AppComponent]

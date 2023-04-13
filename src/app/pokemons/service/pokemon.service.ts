@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import {catchError, Observable, of, tap} from "rxjs";
 import {Pokemon} from "../../models/pokemon.model";
 import {PagedData} from "../../models/paged-data.model";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {MessageService} from "./message.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
+
+  acces_token?:string;
 
   private pokemonsUrl= "http://pokedex-api.cleverapps.io/pokemons";
   constructor( private messageService: MessageService,private http: HttpClient ) { }
@@ -62,5 +64,36 @@ export class PokemonService {
     );
   }
 
+  loginUser(email: string, password:string): Observable<any> {
+    const url="http://pokedex-api.cleverapps.io/auth/login";
+    return this.http.post<any>(`${url}`, {email,password}).pipe(
+      tap(() => this.log(`found heroes matching `)),
+      tap(myRes => this.acces_token=myRes.access_token),
+      catchError(this.handleError<any>('searchHeroes', ))
+    );
+  }
 
+  getPokemonEquipe(): Observable<number[]> {
+    const url="http://pokedex-api.cleverapps.io/trainers/me/team";
+
+    const header= {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.acces_token}`)};
+
+        // TODO: send the message _after_ fetching the hero
+        return this.http.get<number[]>(url,header).pipe(
+          tap(() => this.log(`HeroService: fetched hero`)),
+          catchError(this.handleError<number[]>('getHeroes')));
+      }
+
+
+  updatePokemonEquipe(id: number[]): Observable<number[]> {
+    const url="http://pokedex-api.cleverapps.io/trainers/me/team";
+
+    const header= {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.acces_token}`)};
+    return this.http.put<number[]>(`${url}`,id,header).pipe(
+      tap(() => this.log(`found heroes matching `)),
+      catchError(this.handleError<number[]>('deletePekemon', ))
+    );
+  }
 }
